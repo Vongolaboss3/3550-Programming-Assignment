@@ -55,20 +55,41 @@ def bytesToDict(dict):
 
 #reference 2
 def encrypt(dict, k):
-    ##Define the encryption scheme here.
+	'''
+	Encrypts the dictionary and writes the ciphertext to output file
+	param dict: bytes encoding the dict
+	param k: key value
+	return: None
+	'''
 
-    ##Encrypt the Dictionary value here.
+	##Define the encryption scheme here.
+	cipher = AES.new(k, AES.MODE_EAX)
+	
+	##Encrypt the dictionary value here.
+	ciphertext, tag = cipher.encrypt_and_digest(dict)
+	
+	# write the encrpyted data to output file
+	with open(passwordFile, 'wb') as outfile:
+		[outfile.write(x) for x in (cipher.nonce, tag, ciphertext)]
 
-    with open(passwordFile, 'wb') as outfile:
-          [outfile.write(x) for x in (cipher.nonce, tag, ciphertext)]
+
 def decrypt(k):
-      with open(passwordFile, 'rb') as infile:
-            nonce, tag, ciphertext = [ infile.read(x) for x in (16, 16, -1) ]
-            ##Define the encryption scheme here.
+	'''
+	Given a key, opens the input file, decrypts it and returns the bytes representation of dict
+	param k: key value
+	return: bytes, encoding the dict
+	'''
+	with open(passwordFile, 'rb') as infile:
+		# read the input file
+		nonce, tag, ciphertext = [ infile.read(x) for x in (16, 16, -1) ]
+		
+		##Define the encryption scheme here.
+		cipher = AES.new(k, AES.MODE_EAX, nonce)
+		
+		##Decrypt the ciphertext here.
+		data = cipher.decrypt_and_verify(ciphertext, tag)
+		return data
 
-            ##Decrypt the ciphertext here.
-
-            return data
 
 def Main():
 
