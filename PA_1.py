@@ -44,8 +44,7 @@ passwordFile = "passwords"
 #salt = global_scope['enc'].key + \
 #    global_scope['conf'].salt.encode()
 ##The header of the file.
-head = ""
-
+head = " ____               __  __\n"+"|  _ \ __ _ ___ ___|  \/  | __ _ _ __  \n" +"| |_) / _` / __/ __| |\/| |/ _` | '_ \ \n" +"|  __/ (_| \__ \__ \ |  | | (_| | | | |\n" +"|_|   \__,_|___/___/_|  |_|\__,_|_| |_|\n"
 
 #reference 1
 def dicToBytes(dict):
