@@ -48,10 +48,10 @@ head = ""
 
 
 #reference 1
-def dicToBytes(dict):
-        return json.dumps(dict).encode('utf-8')
+def dictToBytes(dict):
+      return json.dumps(dict).encode('utf-8')
 def bytesToDict(dict):
-    return json.load(dict.decode('utf-8'))
+      return json.load(dict.decode('utf-8'))
 
 #reference 2
 def encrypt(dict, k):
@@ -94,7 +94,7 @@ else:
     try:
             print("Loading database...")
             pws = decrypt(k)
-            pws = btyesToDict(pws)
+            pws = bytesToDict(pws)
 
     except Exception as e:
           print("Wrong password")
@@ -112,7 +112,7 @@ else:
           encrypt( dictToBytes(pws), k)
           print("stored")
 
-if __name == '__main__':
+if __name__ == '__main__':
       print(str(head))
       Main()
 
