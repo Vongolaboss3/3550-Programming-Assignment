@@ -20,7 +20,7 @@
 #   rm passwords
 #
 # Example Output:
-# $python PA_1.py Google.com
+# $python pwMan.py Google.com
 #   Enter Master Password: pass
 #   No password database, creating....
 #   Loading database...
@@ -40,10 +40,10 @@ import os
 import sys
 import json
 
-from Crypto.Hash import SHA256
-from Crypto.Cipher import AES
-from Crypto.Random import get_random_bytes
-from Crypto.Protocol.KDF import PBKDF2
+from Cryptodome.Hash import SHA256
+from Cryptodome.Cipher import AES
+from Cryptodome.Random import get_random_bytes
+from Cryptodome.Protocol.KDF import PBKDF2
 
 passwordFile = "passwords"
 ##The salt value should be set here.
@@ -122,7 +122,7 @@ def Main():
         pws = decrypt(k)
         pws = bytesToDict(pws)
 
-    except Exception as e:
+     except Exception as e:
         print("Wrong password")
         return
 
