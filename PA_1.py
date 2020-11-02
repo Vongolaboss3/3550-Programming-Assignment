@@ -41,8 +41,9 @@ from Crypto.Protocol.KDF import PBKDF2
 
 passwordFile = "passwords"
 ##The salt value should be set here.
+salt = os.urandom(32)
 #salt = global_scope['enc'].key + \
-#    global_scope['conf'].salt.encode()
+#global_scope['conf'].salt.encode()
 ##The header of the file.
 head = " ____               __  __\n"+"|  _ \ __ _ ___ ___|  \/  | __ _ _ __  \n" +"| |_) / _` / __/ __| |\/| |/ _` | '_ \ \n" +"|  __/ (_| \__ \__ \ |  | | (_| | | | |\n" +"|_|   \__,_|___/___/_|  |_|\__,_|_| |_|\n"
 
@@ -92,7 +93,7 @@ def decrypt(k):
 
 def Main():
 
-    printf("\n\n")
+    print("\n\n")
     mpw = input("Enter Master Password: ")
     k   = PBKDF2(mpw, salt, dkLen=32) # derive key from password
 
@@ -104,33 +105,33 @@ def Main():
         newDict = dictToBytes({"": ""})
         encrypt(newDict, k)
 
-# check usage
-if len(sys.argv)    != 2:
-      print("usage: python pwMan.py <website>")
-      return
-else:
-
-    # decrypt passwords file to dictionary
-    try:
-            print("Loading database...")
-            pws = decrypt(k)
-            pws = bytesToDict(pws)
-
-    except Exception as e:
-          print("Wrong password")
-          return
-
-    # print value for website or add new value
-    entry = sys.argv[1]
-    if entry in pws:
-          print("entry  : " + str(entry))
-          print("password: " + str(pws[entry]))
+      # check usage
+    if len(sys.argv)    != 2:
+            print("usage: python pwMan.py <website>")
+            return
     else:
-          print("No entry for " + str(entry) + ", creating new...")
-          newPass = input("New entry - enter password for "+entry+": ")
-          pws[entry] = newPass
-          encrypt( dictToBytes(pws), k)
-          print("stored")
+
+            # decrypt passwords file to dictionary
+            try:
+                        print("Loading database...")
+                        pws = decrypt(k)
+                        pws = bytesToDict(pws)
+
+            except Exception as e:
+                  print("Wrong password")
+                  return
+
+            # print value for website or add new value
+            entry = sys.argv[1]
+            if entry in pws:
+                  print("entry  : " + str(entry))
+                  print("password: " + str(pws[entry]))
+            else:
+                  print("No entry for " + str(entry) + ", creating new...")
+                  newPass = input("New entry - enter password for "+entry+": ")
+                  pws[entry] = newPass
+                  encrypt( dictToBytes(pws), k)
+                  print("stored")
 
 if __name__ == '__main__':
       print(str(head))
