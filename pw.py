@@ -1,6 +1,7 @@
-# Josh Talkington
-# jt0190@unt.edu
-# 9/25/2019
+# Jonathan Adegoke
+# Lela Jones
+# Nick Norado
+# 10/21/2020
 #
 # This program stores passwords in a file 
 # that is encrypted with a master password
@@ -14,20 +15,20 @@
 #   2. https://www.pycryptodome.org/en/latest/src/examples.html
 # 
 # To run:
-#	python pwMan.py Google.com
+#	python pw.py Google.com
 # 
 # To reset:
 # 	rm passwords
 #
 # Example Output:
-# $ python pwMan.py Google.com
+# $ python pw.py Google.com
 # 	Enter Master Password: pass
 # 	No password database, creating....
 # 	Loading database...
 # 	No entry for  Google.com , creating new...
 # 	New entry - enter password for Google.com: pass
 # 	stored
-# $ python pwMan.py Google.com
+# $ python pw.py Google.com
 # 	Enter Master Password: pass
 # 	Loading database...
 # 	website:   Google.com
@@ -38,7 +39,6 @@
 
 import csv, os, sys, json
 from Cryptodome.Hash import SHA256
-#from Crypto.Cipher import AES
 from Cryptodome.Cipher import AES
 from Cryptodome.Random import get_random_bytes
 from Cryptodome.Protocol.KDF import PBKDF2
@@ -49,7 +49,6 @@ from Cryptodome.Cipher import PKCS1_OAEP
 passwordFile = "passwords" \
 			   ""
 ##The salt value should be set here.
-#salt = os.urandom(32)
 salt = b'\x0bP\xfd[\x00\xb2\xf8\xbe\n\x1f\x03q\x8b\xf4\x1f\nU\x89\x8a]\xb6\x85\xa5q\xc9\x1f\xd97\xaa^\xa57'
 ##The header of the file.
 head = " ____               __  __\n"+"|  _ \ __ _ ___ ___|  \/  | __ _ _ __  \n" +"| |_) / _` / __/ __| |\/| |/ _` | '_ \ \n" +"|  __/ (_| \__ \__ \ |  | | (_| | | | |\n" +"|_|   \__,_|___/___/_|  |_|\__,_|_| |_|\n"
